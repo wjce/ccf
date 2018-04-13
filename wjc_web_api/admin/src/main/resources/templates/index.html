@@ -1,0 +1,81 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+    <div id="div1">{{message}}</div>
+    <div id="div2"><span v-bind:title="message">鼠标悬停</span></div>
+    <div id="div3"><p v-if = "seen">你看不见我</p></div>
+    <div id="div4">
+        <ol>
+            <li v-for = "todo in todos">{{todo.text}}</li>
+        </ol>
+    </div>
+    <div id="div5">
+        <p>{{message}}</p>
+        <button v-on:click="reverseMessage">逆转消息</button>
+    </div>
+    <div id="div6">
+        <p>{{ message }}</p>
+        <input v-model="message"/>
+    </div>
+    <div id="div7">
+        <p v-html="message"></p>
+    </div>
+    <script>
+        var div1 = new Vue({
+            el:'#div1',
+            data:{
+                message:'hello vue'
+            }
+        })
+        var div2 = new Vue({
+            el:'#div2',
+            data:{
+                message:"页面于" + new Date().toLocaleString()+"加载"
+            }
+        })
+        var div3 = new Vue({
+            el:'#div3',
+            data:{
+                seen:true
+            }
+        })
+        var div4 = new Vue({
+            el:'#div4',
+            data:{
+                todos:[
+                    {text:'learn vue'},
+                    {text:'create my project'},
+                    {text:'this is a test html'},
+                    {text:'hello world'}
+                ]
+            }
+        })
+        var div5 = new Vue({
+            el:'#div5',
+            data:{
+                message:'普通消息'
+            },
+            methods:{
+                reverseMessage:function(){
+                    this.message = this.message.split('').reverse().join('')
+                }
+            }
+        })
+        var div6 = new Vue({
+            el: '#div6',
+            data: {
+                message: 'Hello Vue!'
+            }
+        })
+        var div7 = new Vue({
+            el:'#div7',
+            data:{
+                message:'<h2>learning</h2>'
+            }
+        })
+    </script>
+</body>
+</html>
