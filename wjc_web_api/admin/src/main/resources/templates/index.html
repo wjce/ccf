@@ -23,6 +23,11 @@
     <div id="div7">
         <p v-html="message"></p>
     </div>
+    <div id="div8">
+        <label for="r1">修改颜色</label><input type="checkbox" v-model="class1" id="r1" />
+        <br/>
+        <div v-bind:class="{'class1':class1}">v-bind:class</div>
+    </div>
     <script>
         var div1 = new Vue({
             el:'#div1',
@@ -74,6 +79,12 @@
             el:'#div7',
             data:{
                 message:'<h2>learning</h2>'
+            }
+        })
+        var div8 = new Vue({
+            el:'#div8',
+            data:{
+                class1:true
             }
         })
     </script>
