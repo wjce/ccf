@@ -13,7 +13,12 @@ public class SysMenu {
     private String name;
     private Integer type;
     private Integer parentMenuId;
+    private Integer parentMenuIds;
     private String permission;
+    private Integer sort;
+    private Integer treeNode;
+    private String request;
+    private Integer isDel;
     private Integer state;
     private List<RoleMenu> roleMenuList;
 
@@ -67,6 +72,14 @@ public class SysMenu {
         this.parentMenuId = parentMenuId;
     }
 
+    public Integer getParentMenuIds() {
+        return parentMenuIds;
+    }
+
+    public void setParentMenuIds(Integer parentMenuIds) {
+        this.parentMenuIds = parentMenuIds;
+    }
+
     public String getPermission() {
         return permission;
     }
@@ -81,6 +94,38 @@ public class SysMenu {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public Integer getTreeNode() {
+        return treeNode;
+    }
+
+    public void setTreeNode(Integer treeNode) {
+        this.treeNode = treeNode;
+    }
+
+    public String getRequest() {
+        return request;
+    }
+
+    public void setRequest(String request) {
+        this.request = request;
+    }
+
+    public Integer getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(Integer isDel) {
+        this.isDel = isDel;
     }
 
     @OneToMany(mappedBy = "sysMenu", fetch = FetchType.LAZY)

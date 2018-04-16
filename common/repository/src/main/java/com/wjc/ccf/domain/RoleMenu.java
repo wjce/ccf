@@ -6,6 +6,9 @@ import javax.persistence.*;
 @Table(name = "tb_role_menu")
 public class RoleMenu {
     private Long id;
+    private String permission;
+    private Integer menuState;
+    private Integer isDel;
     private Role role;
     private SysMenu sysMenu;
 
@@ -29,6 +32,30 @@ public class RoleMenu {
         this.role = role;
     }
 
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
+
+    public Integer getMenuState() {
+        return menuState;
+    }
+
+    public void setMenuState(Integer menuState) {
+        this.menuState = menuState;
+    }
+
+    public Integer getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(Integer isDel) {
+        this.isDel = isDel;
+    }
+
     @ManyToOne
     @JoinColumn(name = "menu_id")
     public SysMenu getSysMenu() {
@@ -43,6 +70,9 @@ public class RoleMenu {
     public String toString() {
         return "RoleMenu{" +
                 "id=" + id +
+                ", permission='" + permission + '\'' +
+                ", menuState=" + menuState +
+                ", isDel=" + isDel +
                 ", role=" + role +
                 ", sysMenu=" + sysMenu +
                 '}';

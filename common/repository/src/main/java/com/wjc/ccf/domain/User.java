@@ -10,13 +10,16 @@ public class User {
     private Long id;
     private Date createDate;
     private Date updateDate;
+    //用户名/账号
     private String name;
     private String phone;
+    //昵称
     private String nickname;
     private String password;
+    private String salt;
     private Integer erroCount;
-    //是否冻结
-    private Integer freeze;
+    //状态 0正常 1错误次数达上限 2冻结
+    private Integer state;
     private List<UserRole> userRoleList;
 
     @Id
@@ -85,12 +88,20 @@ public class User {
         this.erroCount = erroCount;
     }
 
-    public Integer getFreeze() {
-        return freeze;
+    public String getSalt() {
+        return salt;
     }
 
-    public void setFreeze(Integer freeze) {
-        this.freeze = freeze;
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
@@ -112,8 +123,9 @@ public class User {
                 ", phone='" + phone + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
                 ", erroCount=" + erroCount +
-                ", freeze=" + freeze +
+                ", state=" + state +
                 ", userRoleList=" + userRoleList +
                 '}';
     }

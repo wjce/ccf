@@ -8,6 +8,7 @@ import java.util.List;
 public class Role {
     private Long id;
     private String name;
+    private Dept dept;
     private List<UserRole> userRoleList;
     private List<RoleMenu> roleMenuList;
 
@@ -29,6 +30,16 @@ public class Role {
         this.name = name;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "dept_id")
+    public Dept getDept() {
+        return dept;
+    }
+
+    public void setDept(Dept dept) {
+        this.dept = dept;
+    }
+
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     public List<UserRole> getUserRoleList() {
         return userRoleList;
@@ -47,13 +58,4 @@ public class Role {
         this.roleMenuList = roleMenuList;
     }
 
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", userRoleList=" + userRoleList +
-                ", roleMenuList=" + roleMenuList +
-                '}';
-    }
 }
