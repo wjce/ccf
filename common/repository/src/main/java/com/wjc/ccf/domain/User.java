@@ -104,7 +104,7 @@ public class User {
         this.state = state;
     }
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     public List<UserRole> getUserRoleList() {
         return userRoleList;
     }
@@ -128,5 +128,20 @@ public class User {
                 ", state=" + state +
                 ", userRoleList=" + userRoleList +
                 '}';
+    }
+
+    public User(){}
+    public User(Long id, Date createDate, Date updateDate, String name, String phone, String nickname, String password, String salt, Integer erroCount, Integer state, List<UserRole> userRoleList) {
+        this.id = id;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.name = name;
+        this.phone = phone;
+        this.nickname = nickname;
+        this.password = password;
+        this.salt = salt;
+        this.erroCount = erroCount;
+        this.state = state;
+        this.userRoleList = userRoleList;
     }
 }

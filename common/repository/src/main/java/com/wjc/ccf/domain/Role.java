@@ -40,7 +40,7 @@ public class Role {
         this.dept = dept;
     }
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     public List<UserRole> getUserRoleList() {
         return userRoleList;
     }
@@ -49,7 +49,7 @@ public class Role {
         this.userRoleList = userRoleList;
     }
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     public List<RoleMenu> getRoleMenuList() {
         return roleMenuList;
     }
