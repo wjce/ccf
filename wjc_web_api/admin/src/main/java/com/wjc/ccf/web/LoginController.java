@@ -20,21 +20,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
-public class TestController {
+public class LoginController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/req_login", method = RequestMethod.GET)
-    public String login(Model model, HttpServletRequest req, String name, String password){
+    @RequestMapping(value = "/req_login")
+    public String login(Model model, @ModelAttribute(name = "name") String name, @ModelAttribute(name = "password") String password){
         String error = null;
         User user = userService.getUserForName(name);
         if(user == null){
@@ -62,15 +67,37 @@ public class TestController {
         return "/main";
     }
 
-    @RequestMapping(value = "/req_save_user", method = RequestMethod.GET)
-    public String save(Model model, String name, String phone, String nickname, String password){
+    @RequestMapping(value = "req_register", method = RequestMethod.GET)
+    public String register(){
+        return "/register";
+    }
+
+    /**
+     * 保存用户注册信息
+     * @param model
+     * @param name
+     * @param phone
+     * @param nickname
+     * @param password
+     * @param repassword
+     * @return
+     */
+    @RequestMapping(value = "/req_save_user", method = RequestMethod.POST)
+    public String save(Model model, RedirectAttributes redirectAttributes, String name, String phone, String nickname, String password, String repassword){
+        if(!password.equals(repassword)){
+            model.addAttribute("error","两次密码不一致，请重新输入");
+            return "redirect:register";
+        }
+
         String hex = SecurityUtil.getSalt();
         String md5 = SecurityUtil.md5(password, hex);
         User user = userService.save(new User(null,new Date(), new Date(), name, phone, nickname, md5, hex, 0, 0, null));
         if(user.getId() == null){
-            return "/error/save";
+            return "/error";
         }
-        return "redirect:list";
+        redirectAttributes.addAttribute("name",user.getName());
+        redirectAttributes.addAttribute("password",user.getPassword());
+        return "redirect:req_login?name="+name+"&password="+password+"";
     }
 
     @RequestMapping(value = "/req_get_user", method = RequestMethod.GET)

@@ -144,4 +144,14 @@ public class User {
         this.state = state;
         this.userRoleList = userRoleList;
     }
+
+    public User(String name, String phone, String nickname, String password, Date createDate, Date updateDate, String salt) {
+        this.name = name;
+        this.phone = phone;
+        this.nickname = nickname;
+        this.password = password;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.salt = salt;
+    }
 }
