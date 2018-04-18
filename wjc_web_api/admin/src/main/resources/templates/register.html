@@ -35,7 +35,7 @@
         <form method="post" action="/req_save_user" class="bootstrap-admin-login-form">
             <h1>注册</h1>
             <div class="form-group">
-                <input class="form-control" type="text" name="name" placeholder="账号" />
+                <input class="form-control" type="text" name="name" placeholder="账号" /><span style="color: red"></span>
             </div>
             <div class="form-group">
                 <input class="form-control" type="password" name="password" placeholder="密码" />
@@ -70,6 +70,8 @@
 </script>
 <script th:inline="javascript">
     $(document).ready(function(){
+        validateName();
+
         $('#error').hide();
         $("form").submit(function(e){
             var name = $('input[name="name"]').val();
@@ -109,6 +111,24 @@
         });
     });
 
+    function validateName(){
+        $('input[name="name"]').blur(function(){
+            var content = $('input[name="name"]').val();
+            $.ajax({
+                url:"/find_user_name",
+                method:"post",
+                dataType:"json",
+                data:{name:content},
+                success:function(data){
+                    if(data == 200){
+                        $('input[name="name"]').next('span').html("")
+                    }else if(data == 205){
+                        $('input[name="name"]').next('span').html("该用户名已存在，请更换")
+                    }
+                }
+            });
+        });
+    }
 </script>
 </body>
 </html>

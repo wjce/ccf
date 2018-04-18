@@ -67,7 +67,7 @@ public class LoginController {
         return "/main";
     }
 
-    @RequestMapping(value = "req_register", method = RequestMethod.GET)
+    @RequestMapping(value = "/req_register", method = RequestMethod.GET)
     public String register(){
         return "/register";
     }
@@ -110,6 +110,16 @@ public class LoginController {
             user = new User();
         }
         return user.toString();
+    }
+
+    @RequestMapping(value = "/find_user_name", method = RequestMethod.POST)
+    public @ResponseBody String validateName(String name){
+        System.out.println(name);
+        User user = userService.getUserForName(name);
+        if(user==null){
+            return "200";
+        }
+        return "205";
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
