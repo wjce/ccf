@@ -38,8 +38,28 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 登出
+     * @return
+     */
+    @RequestMapping(value = "/req_logout", method = RequestMethod.GET)
+    public String logout(){
+        SecurityUtils.getSubject().logout();
+        return "redirect:";
+    }
+
+    /**
+     * 登录
+     * @param model
+     * @param name
+     * @param password
+     * @return
+     */
     @RequestMapping(value = "/req_login")
-    public String login(Model model, @ModelAttribute(name = "name") String name, @ModelAttribute(name = "password") String password){
+    public String login(Model model, @ModelAttribute(name = "name") String name, @ModelAttribute(name = "password") String password, String rememberMe){
+        if(StringUtils.isBlank(name) && StringUtils.isBlank(password)){
+            return "/login";
+        }
         String error = null;
         User user = userService.getUserForName(name);
         if(user == null){
@@ -64,9 +84,26 @@ public class LoginController {
             model.addAttribute("error", error);
             return "/login";
         }
+
+        if(null!=rememberMe && rememberMe.equals("on")){
+            token.setRememberMe(true);
+        }
+        return "redirect:main";
+    }
+
+    /**
+     * 访问主页
+     * @return
+     */
+    @RequestMapping(value = "/main")
+    public String main(){
         return "/main";
     }
 
+    /**
+     * 注册页
+     * @return
+     */
     @RequestMapping(value = "/req_register", method = RequestMethod.GET)
     public String register(){
         return "/register";
@@ -82,7 +119,7 @@ public class LoginController {
      * @param repassword
      * @return
      */
-    @RequestMapping(value = "/req_save_user", method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Model model, RedirectAttributes redirectAttributes, String name, String phone, String nickname, String password, String repassword){
         if(!password.equals(repassword)){
             model.addAttribute("error","两次密码不一致，请重新输入");
@@ -97,21 +134,19 @@ public class LoginController {
         }
         redirectAttributes.addAttribute("name",user.getName());
         redirectAttributes.addAttribute("password",user.getPassword());
-        return "redirect:req_login?name="+name+"&password="+password+"";
+        return "redirect:req_login";
     }
 
-    @RequestMapping(value = "/req_get_user", method = RequestMethod.GET)
-    public @ResponseBody String getUser(String id){
-        User user;
-        if(StringUtils.isNotBlank(id)){
-            user = userService.getUser(Long.valueOf(id));
-            System.out.println(user.toString());
-        }else{
-            user = new User();
-        }
-        return user.toString();
+    @RequestMapping(value = "/a", method = RequestMethod.POST)
+    public String a(){
+        return "/main";
     }
 
+    /**
+     * 获取注册名是否可用
+     * @param name
+     * @return
+     */
     @RequestMapping(value = "/find_user_name", method = RequestMethod.POST)
     public @ResponseBody String validateName(String name){
         System.out.println(name);
@@ -122,6 +157,10 @@ public class LoginController {
         return "205";
     }
 
+    /**
+     * 入口
+     * @return
+     */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(){
         return "/login";

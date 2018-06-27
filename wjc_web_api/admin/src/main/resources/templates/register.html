@@ -32,7 +32,7 @@
             <a class="close" data-dismiss="alert" href="#">&times;</a>
             <span th:text="${error}"></span>
         </div>
-        <form method="post" action="/req_save_user" class="bootstrap-admin-login-form">
+        <form method="post" th:action="@{/save}" class="bootstrap-admin-login-form">
             <h1>注册</h1>
             <div class="form-group">
                 <input class="form-control" type="text" name="name" placeholder="账号" /><span style="color: red"></span>

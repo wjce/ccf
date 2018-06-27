@@ -5,17 +5,25 @@ import com.wjc.ccf.domain.User;
 import com.wjc.ccf.domain.UserRole;
 import com.wjc.ccf.repository.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @Service
 public class UserService {
     @Resource
     private UserDao userDao;
+
+    public Page<User> list(Pageable pageable){
+
+        return userDao.findAll(pageable);
+    }
 
     @Transactional(readOnly = true)
     public User getUser(Long id){
@@ -44,4 +52,5 @@ public class UserService {
     public User getUserForName(String name){
         return userDao.findByName(name);
     }
+
 }

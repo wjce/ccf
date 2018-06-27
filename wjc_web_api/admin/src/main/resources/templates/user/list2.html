@@ -248,7 +248,7 @@
         <div class="sidebar-collapse">
             <ul class="nav" id="main-menu">
                 <li>
-                    <a class="active-menu" href="/main"><i class="fa fa-dashboard"></i> 首页</a>
+                    <a href="/main"><i class="fa fa-dashboard"></i> 首页</a>
                 </li>
                 <li>
                     <a href="index.html"><i class="fa fa-dashboard"></i> 仪表盘</a>
@@ -269,7 +269,6 @@
                 <li>
                     <a href="form.html"><i class="fa fa-edit"></i> 形式 </a>
                 </li>
-
 
                 <li>
                     <a href="#"><i class="fa fa-sitemap"></i> 多级下拉菜单<span class="fa arrow"></span></a>
@@ -298,11 +297,11 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li class="active">
                     <a href="#"><i class="fa fa-sitemap"></i> 用户管理<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
+                    <ul class="nav nav-second-level collapse in" aria-expanded="true">
                         <li>
-                            <a href="/user_list">用户管理</a>
+                            <a class="active-menu" href="/user_list">用户管理</a>
                         </li>
                     </ul>
                 </li>
@@ -316,293 +315,130 @@
     <div id="page-wrapper">
         <div class="header">
             <h1 class="page-header">
-                Dashboard <small>Welcome John Doe</small>
+                用户列表 <small>Welcome John Doe</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Dashboard</a></li>
-                <li class="active">Data</li>
+                <li><a href="#">用户管理</a></li>
+                <li><a class="active">用户列表</a></li>
             </ol>
 
         </div>
         <div id="page-inner">
 
             <!-- /. ROW  -->
-
-            <div class="row">
-                <div class="col-xs-6 col-md-3">
-                    <div class="panel panel-default">
-                        <div class="panel-body easypiechart-panel">
-                            <h4>利润</h4>
-                            <div class="easypiechart" id="easypiechart-blue" data-percent="82" ><span class="percent">82%</span>
+            <div class="panel panel-default">
+                <div class="panel-heading"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                    用户列表
+                </font></font></div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div id="dataTables-example_filter" class="dataTables_filter">
+                                        <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">搜索：</font></font>
+                                            <input type="search" class="form-control input-sm" aria-controls="dataTables-example" />
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 active pull-right">
+                                    <div class="dataTables_length" id="dataTables-example_length">
+                                        <label>
+                                            <select name="dataTables-example_length" aria-controls="dataTables-example" class="form-control input-sm">
+                                                <option value="10"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">10</font></font></option>
+                                                <option value="25"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">25</font></font></option>
+                                                <option value="50"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">50</font></font></option>
+                                                <option value="100"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">100</font></font></option>
+                                            </select>
+                                            <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 每页记录</font></font>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" aria-describedby="dataTables-example_info">
+                                <thead>
+                                <tr role="row">
+                                    <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column ascending" style="width: 276px;"><font style="vertical-align: inherit;">
+                                        <font style="vertical-align: inherit;">用户名</font></font>
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 404px;">
+                                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">昵称</font></font>
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 378px;">
+                                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">手机号</font></font>
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 378px;">
+                                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">创建日期</font></font>
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 233px;">
+                                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">密码错误次数</font></font>
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 167px;">
+                                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">状态</font></font>
+                                    </th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 167px;">
+                                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">操作</font></font>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="gradeA odd" th:each="content:${page.content}">
+                                    <td class="sorting_1" th:text="${content.name}">
+                                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font>
+                                    </td>
+                                    <td class=" " th:text="${content.nickname}">
+                                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> </font></font>
+                                    </td>
+                                    <td class=" " th:text="${content.phone}">
+                                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font>
+                                    </td>
+                                    <td class="center " th:text="${#dates.format(content.createDate,'yyyy-MM-dd')}">
+                                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font>
+                                    </td>
+                                    <td class="center " th:text="${content.erroCount}">
+                                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font>
+                                    </td>
+                                    <td class="center " th:if="${content.state==0}">
+                                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">正常</font></font>
+                                    </td>
+                                    <td class="center " th:if="${content.state==1}">
+                                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">登录异常</font></font>
+                                    </td>
+                                    <td class="center " th:if="${content.state==2}">
+                                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">冻结</font></font>
+                                    </td>
+                                    <td class="center "><font style="vertical-align: inherit;">
+                                        <font style="vertical-align: inherit;">编辑 | 详情 | 删除</font></font>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="dataTables_info" id="dataTables-example_info" role="alert" aria-live="polite" aria-relevant="all">
+                                        <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">显示57个参赛作品中的1到10个</font></font>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+                                        <ul class="pagination">
+                                            <li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">以前</font></font></a></li>
+                                            <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1</font></font></a></li>
+                                            <li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2</font></font></a></li>
+                                            <li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">3</font></font></a></li>
+                                            <li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">4</font></font></a></li>
+                                            <li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">五</font></font></a></li>
+                                            <li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">6</font></font></a></li>
+                                            <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">下一个</font></font></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <div class="panel panel-default">
-                        <div class="panel-body easypiechart-panel">
-                            <h4>销售</h4>
-                            <div class="easypiechart" id="easypiechart-orange" data-percent="55" ><span class="percent">55%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <div class="panel panel-default">
-                        <div class="panel-body easypiechart-panel">
-                            <h4>顾客</h4>
-                            <div class="easypiechart" id="easypiechart-teal" data-percent="84" ><span class="percent">84%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <div class="panel panel-default">
-                        <div class="panel-body easypiechart-panel">
-                            <h4>访问次数</h4>
-                            <div class="easypiechart" id="easypiechart-red" data-percent="46" ><span class="percent">46%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!--/.row-->
-
-
-            <div class="row">
-                <div class="col-md-3 col-sm-12 col-xs-12">
-                    <div class="panel panel-primary text-center no-boder blue">
-                        <div class="panel-left pull-left blue">
-                            <i class="fa fa-eye fa-5x"></i>
-
-                        </div>
-                        <div class="panel-right">
-                            <h3>16,150</h3>
-                            <strong> Daily Visits</strong>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-12 col-xs-12">
-                    <div class="panel panel-primary text-center no-boder blue">
-                        <div class="panel-left pull-left blue">
-                            <i class="fa fa-shopping-cart fa-5x"></i>
-                        </div>
-
-                        <div class="panel-right">
-                            <h3>25,550 </h3>
-                            <strong> Sales</strong>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-12 col-xs-12">
-                    <div class="panel panel-primary text-center no-boder blue">
-                        <div class="panel-left pull-left blue">
-                            <i class="fa fa fa-comments fa-5x"></i>
-
-                        </div>
-                        <div class="panel-right">
-                            <h3>11,225 </h3>
-                            <strong> Comments </strong>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-12 col-xs-12">
-                    <div class="panel panel-primary text-center no-boder blue">
-                        <div class="panel-left pull-left blue">
-                            <i class="fa fa-users fa-5x"></i>
-
-                        </div>
-                        <div class="panel-right">
-                            <h3>72,525 </h3>
-                            <strong>No. of Visits</strong>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Line Chart
-                        </div>
-                        <div class="panel-body">
-                            <div id="morris-line-chart"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-7">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Bar Chart Example
-                        </div>
-                        <div class="panel-body">
-                            <div id="morris-bar-chart"></div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-
-
-
-            <div class="row">
-                <div class="col-md-9 col-sm-12 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Area Chart
-                        </div>
-                        <div class="panel-body">
-                            <div id="morris-area-chart"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-12 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Donut Chart Example
-                        </div>
-                        <div class="panel-body">
-                            <div id="morris-donut-chart"></div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-
                 </div>
             </div>
             <!-- /. ROW  -->
-
-
-
-
-
-            <div class="row">
-                <div class="col-md-4 col-sm-12 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Tasks Panel
-                        </div>
-                        <div class="panel-body">
-                            <div class="list-group">
-
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">7 minutes ago</span>
-                                    <i class="fa fa-fw fa-comment"></i> Commented on a post
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">16 minutes ago</span>
-                                    <i class="fa fa-fw fa-truck"></i> Order 392 shipped
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">36 minutes ago</span>
-                                    <i class="fa fa-fw fa-globe"></i> Invoice 653 has paid
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">1 hour ago</span>
-                                    <i class="fa fa-fw fa-user"></i> A new user has been added
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">1.23 hour ago</span>
-                                    <i class="fa fa-fw fa-user"></i> A new user has added
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">yesterday</span>
-                                    <i class="fa fa-fw fa-globe"></i> Saved the world
-                                </a>
-                            </div>
-                            <div class="text-right">
-                                <a href="#">More Tasks <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-md-8 col-sm-12 col-xs-12">
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Responsive Table Example
-                        </div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>S No.</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>User Name</th>
-                                        <th>Email ID.</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>John</td>
-                                        <td>Doe</td>
-                                        <td>John15482</td>
-                                        <td>name@site.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Kimsila</td>
-                                        <td>Marriye</td>
-                                        <td>Kim1425</td>
-                                        <td>name@site.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Rossye</td>
-                                        <td>Nermal</td>
-                                        <td>Rossy1245</td>
-                                        <td>name@site.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Richard</td>
-                                        <td>Orieal</td>
-                                        <td>Rich5685</td>
-                                        <td>name@site.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Jacob</td>
-                                        <td>Hielsar</td>
-                                        <td>Jac4587</td>
-                                        <td>name@site.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td>Wrapel</td>
-                                        <td>Dere</td>
-                                        <td>Wrap4585</td>
-                                        <td>name@site.com</td>
-                                    </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <!-- /. ROW  -->
-
-
-            <footer><p>Copyright &copy; 2016.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
-
-
-            </footer>
         </div>
         <!-- /. PAGE INNER  -->
     </div>

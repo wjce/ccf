@@ -22,13 +22,30 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         //拦截器
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap();
-        filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/logout","logout");
 
-        shiroFilterFactoryBean.setLoginUrl("/login");
-        shiroFilterFactoryBean.setSuccessUrl("/index");
+//        filterChainDefinitionMap.put("/static/**", "anon");
+        filterChainDefinitionMap.put("/assets/**", "anon");
+        filterChainDefinitionMap.put("/contact/**", "anon");
+        filterChainDefinitionMap.put("/css/**", "anon");
+        filterChainDefinitionMap.put("/fonts/**", "anon");
+        filterChainDefinitionMap.put("/images/**", "anon");
+        filterChainDefinitionMap.put("/js/**", "anon");
+        filterChainDefinitionMap.put("/vendors/**", "anon");
 
-        shiroFilterFactoryBean.setUnauthorizedUrl("/404");
+        filterChainDefinitionMap.put("/req_mongo/save","anon");
+        filterChainDefinitionMap.put("/req_mongo/list","anon");
+        filterChainDefinitionMap.put("/","anon");
+        filterChainDefinitionMap.put("/req_login","anon");
+        filterChainDefinitionMap.put("/req_register","anon");
+        filterChainDefinitionMap.put("/find_user_name","anon");
+        filterChainDefinitionMap.put("/login","anon");
+        filterChainDefinitionMap.put("/**","authc");
+
+        shiroFilterFactoryBean.setLoginUrl("/");
+        shiroFilterFactoryBean.setSuccessUrl("/main");
+
+        shiroFilterFactoryBean.setUnauthorizedUrl("/");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
         return shiroFilterFactoryBean;
