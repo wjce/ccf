@@ -1,11 +1,19 @@
 package com.wjc.ccf.repository.dao;
 
 import com.wjc.ccf.domain.Mongo;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import com.wjc.ccf.repository.custom.MongoDaoCustom;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.mongodb.repository.Query;
 
-public interface MongoDao extends MongoRepository<Mongo, Long> {
+import java.util.List;
+import java.util.stream.Stream;
+
+public interface MongoDao extends MongoRepository<Mongo, Long>, MongoDaoCustom {
+
+    List<Mongo> findByAgeAndName(Integer age, String name);
+
+//    Stream<Mongo> findAllByAge(Integer age);
+
+//    @Query("select m from Mongo m")
+//    Stream<Mongo> findAllByCustomQueryAndStream();
 }
