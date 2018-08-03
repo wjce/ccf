@@ -163,11 +163,43 @@ public class LoginController {
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(){
+        Subject subject = SecurityUtils.getSubject();
+        if(subject.isRemembered()){
+            return "/index";
+        }
         return "/login";
     }
 
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     public String index2(){
         return "/index";
+    }
+
+    @RequestMapping(value = "/test_login", method = RequestMethod.GET)
+    public @ResponseBody String test(){
+        String html = "<div class=\"row\">\n" +
+                "        <div id=\"error\" class=\"alert alert-info\">\n" +
+                "            <a class=\"close\" data-dismiss=\"alert\" href=\"#\">&times;</a>\n" +
+                "            <span th:text=\"${error}\"></span>\n" +
+                "        </div>\n" +
+                "        <form method=\"post\" action=\"/req_login\" class=\"bootstrap-admin-login-form\">\n" +
+                "            <h1>登录</h1>\n" +
+                "            <div class=\"form-group\">\n" +
+                "                <input class=\"form-control\" type=\"text\" name=\"name\" placeholder=\"账号\" />\n" +
+                "            </div>\n" +
+                "            <div class=\"form-group\">\n" +
+                "                <input class=\"form-control\" type=\"password\" name=\"password\" placeholder=\"密码\" />\n" +
+                "            </div>\n" +
+                "            <div class=\"form-group\">\n" +
+                "                <label>\n" +
+                "                    <input type=\"checkbox\" name=\"rememberMe\" />\n" +
+                "                    记住密码\n" +
+                "                </label>\n" +
+                "            </div>\n" +
+                "            <button class=\"btn btn-lg btn-primary\" type=\"submit\">提交</button>\n" +
+                "            <button class=\"btn btn-lg btn-primary\" type=\"button\" onclick=\"javascript:window.location.href='/req_register'\">注册</button>\n" +
+                "        </form>\n" +
+                "    </div>";
+        return html;
     }
 }

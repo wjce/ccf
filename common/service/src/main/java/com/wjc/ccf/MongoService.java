@@ -2,7 +2,7 @@ package com.wjc.ccf;
 
 import com.mongodb.WriteResult;
 import com.wjc.ccf.domain.Mongo;
-import com.wjc.ccf.repository.custom.QueryMongoDao;
+import com.wjc.ccf.repository.custom.MongoDaoCustom;
 import com.wjc.ccf.repository.dao.MongoDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,7 +18,7 @@ public class MongoService {
     @Autowired
     private MongoDao mongoDao;
     @Autowired
-    private QueryMongoDao queryMongoDao;
+    private MongoDaoCustom mongoDaoCustom;
 
     @Transactional
     public Mongo findOne(Long id){
@@ -45,34 +45,34 @@ public class MongoService {
 
     @Transactional
     public Mongo findOneByTemplate(Long id){
-        return queryMongoDao.findMongo(id);
+        return mongoDaoCustom.findMongo(id);
     }
 
     public List<Mongo> findMongoList(){
-        return queryMongoDao.findMongoList();
+        return mongoDaoCustom.findList();
     }
 
     public void saveMongo(Mongo mongo){
-        queryMongoDao.saveMongo(mongo);
+        mongoDaoCustom.saveMongo(mongo);
     }
 
     public void delMongo(Long id){
-        queryMongoDao.delMongo(id);
+        mongoDaoCustom.delMongo(id);
     }
 
     public void updateMongo(Mongo mongo){
-        WriteResult result = queryMongoDao.updateMongo(mongo);
+        WriteResult result = mongoDaoCustom.updateMongo(mongo);
         result.getUpsertedId();
         System.out.println(result.toString());
     }
 
     public void updateFirstMongo(Mongo mongo){
-        WriteResult result = queryMongoDao.updateFirstMongo(mongo);
+        WriteResult result = mongoDaoCustom.updateFirstMongo(mongo);
         System.out.println(result.toString());
     }
 
     public void updateFirstMongoAge(Mongo mongo){
-        WriteResult result = queryMongoDao.updateFirstMongoAge(mongo);
+        WriteResult result = mongoDaoCustom.updateFirstMongoAge(mongo);
         System.out.println(result.toString());
     }
 

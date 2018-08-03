@@ -11,7 +11,7 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Created by Administrator on 2018/4/16.
+ * Created by wjc on 2018/4/16.
  */
 public class ShiroRealm extends AuthorizingRealm {
     @Autowired
@@ -21,6 +21,9 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         String name = principalCollection.getPrimaryPrincipal().toString();
+        if(name == null){
+            throw new RuntimeException("error");
+        }
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         simpleAuthorizationInfo.setStringPermissions(userService.listPermissions(name));
         return simpleAuthorizationInfo;
@@ -45,4 +48,5 @@ public class ShiroRealm extends AuthorizingRealm {
         );
         return authenticationInfo;
     }
+
 }

@@ -3,7 +3,9 @@ package com.wjc.ccf.config;
 import com.wjc.ccf.shiro.ShiroRealm;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -33,26 +35,26 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/js/**", "anon");
         filterChainDefinitionMap.put("/vendors/**", "anon");
 
-        filterChainDefinitionMap.put("/req_mongo/save","anon");
-        filterChainDefinitionMap.put("/req_mongo/list","anon");
-        filterChainDefinitionMap.put("/req_mongo/update","anon");
-        filterChainDefinitionMap.put("/req_mongo/update2","anon");
-        filterChainDefinitionMap.put("/","anon");
-        filterChainDefinitionMap.put("/req_login","anon");
-        filterChainDefinitionMap.put("/req_register","anon");
-        filterChainDefinitionMap.put("/find_user_name","anon");
-        filterChainDefinitionMap.put("/login","anon");
-//        filterChainDefinitionMap.put("/**","authc");
+        filterChainDefinitionMap.put("/sms", "anon");
+        filterChainDefinitionMap.put("/get_books", "anon");
 
+        filterChainDefinitionMap.put("/login","anon");
+        filterChainDefinitionMap.put("/**","authc");
+
+//        shiroFilterFactoryBean.setLoginUrl("/exception");
         shiroFilterFactoryBean.setLoginUrl("/");
         shiroFilterFactoryBean.setSuccessUrl("/main");
 
-        shiroFilterFactoryBean.setUnauthorizedUrl("/");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/index");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
         return shiroFilterFactoryBean;
     }
 
+    /**
+     * 返回自定义的shiroRealm对象
+     * @return
+     */
     @Bean
     public ShiroRealm shiroRealm(){
         return new ShiroRealm();
@@ -62,6 +64,29 @@ public class ShiroConfig {
     public SecurityManager securityManager(){
         DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
         defaultWebSecurityManager.setRealm(shiroRealm());
+        defaultWebSecurityManager.setRememberMeManager(rememberMeManager());
         return defaultWebSecurityManager;
+    }
+
+    /**
+     * cookie对象
+     * @return
+     */
+    @Bean
+    public SimpleCookie rememberMeCookie(){
+        SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
+        simpleCookie.setMaxAge(30);
+        return simpleCookie;
+    }
+
+    /**
+     * cookie管理对象
+     * @return
+     */
+    @Bean
+    public CookieRememberMeManager rememberMeManager(){
+        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        cookieRememberMeManager.setCookie(rememberMeCookie());
+        return cookieRememberMeManager;
     }
 }

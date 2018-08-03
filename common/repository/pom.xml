@@ -23,5 +23,11 @@
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
             <version>1.5.9.RELEASE</version>
         </dependency>
+        <!-- webmegic注解包 -->
+        <dependency>
+            <groupId>us.codecraft</groupId>
+            <artifactId>webmagic-extension</artifactId>
+            <version>0.7.3</version>
+        </dependency>
     </dependencies>
 </project>

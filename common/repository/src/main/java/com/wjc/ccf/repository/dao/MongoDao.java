@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.repository.Query;
 import java.util.List;
 import java.util.stream.Stream;
 
-public interface MongoDao extends MongoRepository<Mongo, Long>, MongoDaoCustom {
+public interface MongoDao extends MongoRepository<Mongo, Long> {
 
     List<Mongo> findByAgeAndName(Integer age, String name);
 
