@@ -13,5 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>admin</module>
+        <module>wechat</module>
+        <module>nettyClient</module>
     </modules>
 </project>

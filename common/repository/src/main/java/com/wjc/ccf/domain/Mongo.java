@@ -47,4 +47,14 @@ public class Mongo implements Serializable {
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
+
+    @Override
+    public String toString() {
+        return "Mongo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", createDate=" + createDate +
+                '}';
+    }
 }

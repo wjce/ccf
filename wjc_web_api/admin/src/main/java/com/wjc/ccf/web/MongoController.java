@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
 import java.util.List;
@@ -69,10 +70,10 @@ public class MongoController {
     }
 
     @RequestMapping(value = "/find_mongo", method = RequestMethod.GET)
-    public String findMongo(Long id){
+    public @ResponseBody String findMongo(Long id){
         Mongo mongo = mongoService.findOneByTemplate(id);
         logger.debug(mongo.toString());
-        return "redirect:list";
+        return mongo.toString();
     }
 
     @RequestMapping(value = "/find_mongo_list", method = RequestMethod.GET)

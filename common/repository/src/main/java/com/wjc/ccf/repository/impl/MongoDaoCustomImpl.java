@@ -25,9 +25,9 @@ public class MongoDaoCustomImpl implements MongoDaoCustom {
     public Mongo findMongo(Long id) {
         Query query = new Query();
         Criteria criteria = new Criteria();
-        criteria.where("id").is(id);
-        query.addCriteria(criteria);
-
+//        criteria.where("id").is(id);
+//        query.addCriteria(criteria);
+        criteria.orOperator(Criteria.where("id").is(1)).orOperator(Criteria.where("id").is(2));
         return mongoTemplate.findOne(query, Mongo.class);
     }
 
@@ -73,5 +73,13 @@ public class MongoDaoCustomImpl implements MongoDaoCustom {
         Update update = new Update();
         update.set("name", mongo.getName());
         return mongoTemplate.updateFirst(query, update, Mongo.class);
+    }
+
+    @Override
+    public List<Mongo> findMongoList() {
+
+
+
+        return null;
     }
 }

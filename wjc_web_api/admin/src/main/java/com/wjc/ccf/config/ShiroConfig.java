@@ -35,17 +35,24 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/js/**", "anon");
         filterChainDefinitionMap.put("/vendors/**", "anon");
 
+        filterChainDefinitionMap.put("/req_mongo/**", "anon");
         filterChainDefinitionMap.put("/sms", "anon");
         filterChainDefinitionMap.put("/get_books", "anon");
+        filterChainDefinitionMap.put("/get_images", "anon");
 
         filterChainDefinitionMap.put("/login","anon");
+        filterChainDefinitionMap.put("/req_register","anon");
+        filterChainDefinitionMap.put("/save","anon");
+        filterChainDefinitionMap.put("/req_login","anon");
+        filterChainDefinitionMap.put("/find_user_name","anon");
+        filterChainDefinitionMap.put("/index","anon");
         filterChainDefinitionMap.put("/**","authc");
 
 //        shiroFilterFactoryBean.setLoginUrl("/exception");
         shiroFilterFactoryBean.setLoginUrl("/");
         shiroFilterFactoryBean.setSuccessUrl("/main");
 
-        shiroFilterFactoryBean.setUnauthorizedUrl("/index");
+//        shiroFilterFactoryBean.setUnauthorizedUrl("/index");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
         return shiroFilterFactoryBean;

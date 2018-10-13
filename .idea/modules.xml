@@ -5,8 +5,10 @@
       <module fileurl="file://$PROJECT_DIR$/wjc_web_api/admin/admin.iml" filepath="$PROJECT_DIR$/wjc_web_api/admin/admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/ccf.iml" filepath="$PROJECT_DIR$/ccf.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wjc_web_api/nettyClient/nettyClient.iml" filepath="$PROJECT_DIR$/wjc_web_api/nettyClient/nettyClient.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/repository/repository.iml" filepath="$PROJECT_DIR$/common/repository/repository.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/service/service.iml" filepath="$PROJECT_DIR$/common/service/service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wjc_web_api/wechat/wechat.iml" filepath="$PROJECT_DIR$/wjc_web_api/wechat/wechat.iml" />
       <module fileurl="file://$PROJECT_DIR$/wjc_web_api/wjc_web_api.iml" filepath="$PROJECT_DIR$/wjc_web_api/wjc_web_api.iml" />
     </modules>
   </component>

@@ -1,10 +1,8 @@
 package com.wjc.ccf.test;
 
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Optional;
+import java.util.*;
 
-public class TestJava {
+public class TestBase64 {
 
     public static void main(String[] args) {
 //        List<List<String>> fatherList = new LinkedList<>();
@@ -20,6 +18,7 @@ public class TestJava {
         System.out.println("pwd:"+ new String(pwd));
         byte[] pwd2 = decode(pwd);
         System.out.println("pwd2:"+ new String(pwd2));
+        List list = new ArrayList();
     }
 
     public static void testBase64(){

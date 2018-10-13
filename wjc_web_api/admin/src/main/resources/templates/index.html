@@ -1,12 +1,12 @@
-<html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <title>注册</title>
     <meta charset="utf-8" />
-    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+    <script src="js/vue.js"></script>
 </head>
 <body>
 <a href="main.html">main</a>
-<form action="/req_save_user" method="get">
+<form>
     <div><input type="text" name="name" placeholder="请输入账号"/></div>
     <div><input type="password" name="password" placeholder="请输入密码"/></div>
     <div><input type="submit"/></div>
@@ -16,9 +16,9 @@
     <div id="div2"><span v-bind:title="message">鼠标悬停</span></div>
     <div id="div3"><p v-if = "seen">你看不见我</p></div>
     <div id="div4">
-        <ol>
-            <li v-for = "todo in todos">{{todo.text}}</li>
-        </ol>
+        <div  v-for = "todo in todos">
+            <img :src="todo.text.hei"/>
+        </div>
     </div>
     <div id="div5">
         <p>{{message}}</p>
@@ -59,10 +59,13 @@
             el:'#div4',
             data:{
                 todos:[
-                    {text:'learn vue'},
-                    {text:'create my project'},
-                    {text:'this is a test html'},
-                    {text:'hello world'}
+                    // {text:'learn vue'},
+                    // {text:'create my project'},
+                    // {text:'this is a test html'},
+                    // {text:'hello world'},
+                    {"text":{"hei":"https://img.puliantongxun.com/DkwrbKxdTi.png@!W200"}},
+                    {"text":{"hei":"https://img.puliantongxun.com/DkwrbKxdTi.png@!W200"}},
+                    {"text":{"hei":"https://img.puliantongxun.com/DkwrbKxdTi.png@!W200"}}
                 ]
             }
         })

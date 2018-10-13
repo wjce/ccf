@@ -21,5 +21,6 @@ public interface MongoDaoCustom {
 
     WriteResult updateFirstMongoAge(Mongo mongo);
 
+    List<Mongo> findMongoList();
 
 }

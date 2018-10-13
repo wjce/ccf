@@ -70,10 +70,16 @@
 </script>
 <script th:inline="javascript">
     $(document).ready(function(){
-        validateName();
+        var pass = false;
 
+        validateName(pass);
         $('#error').hide();
         $("form").submit(function(e){
+            if(!pass){
+                $('#error span').html('请更换账号')
+                $('#error').show();
+                return pass;
+            }
             var name = $('input[name="name"]').val();
             if(name == ""){
                 $('#error span').html('请输入账号')
@@ -111,7 +117,7 @@
         });
     });
 
-    function validateName(){
+    function validateName(pass){
         $('input[name="name"]').blur(function(){
             var content = $('input[name="name"]').val();
             $.ajax({
@@ -122,6 +128,8 @@
                 success:function(data){
                     if(data == 200){
                         $('input[name="name"]').next('span').html("")
+                        pass=true;
+                        alert(pass)
                     }else if(data == 205){
                         $('input[name="name"]').next('span').html("该用户名已存在，请更换")
                     }
