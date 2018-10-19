@@ -34,13 +34,6 @@ public class ImagePageProcessor implements PageProcessor {
     public void process(Page page) {
         Gson gson = new Gson();
         String html = page.getRawText();
-//        int start = html.indexOf("app.setData('imgData',");
-//        int end = html.indexOf("app.setData('fcadData'");
-//
-//        String result = html.substring(start, end).substring("app.setData('imgData'".length());
-//
-//        start = result.indexOf(");");
-//        result = result.substring(1,start);
         Map map = gson.fromJson(html, Map.class);
 
         List<Map<String, Object>> list = (List<Map<String, Object>>)map.get("data");

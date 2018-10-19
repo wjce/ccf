@@ -39,6 +39,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/sms", "anon");
         filterChainDefinitionMap.put("/get_books", "anon");
         filterChainDefinitionMap.put("/get_images", "anon");
+        filterChainDefinitionMap.put("/get_tb_data", "anon");
 
         filterChainDefinitionMap.put("/login","anon");
         filterChainDefinitionMap.put("/req_register","anon");
