@@ -1,5 +1,7 @@
 package com.wjc.ccf.web;
 
+import com.wjc.ccf.WebmagicUrlService;
+import com.wjc.ccf.domain.WebmagicUrl;
 import com.wjc.ccf.processor.TaoBaoPageProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,28 +22,36 @@ public class TaoBaoController {
 
     @Autowired
     private TaoBaoPageProcessor taoBaoPageProcessor;
+    @Autowired
+    private WebmagicUrlService webmagicUrlService;
 
     @GetMapping(value = "get_tb_data")
-    public String getData(String search){
+    public String getData(String search, Integer num){
 
-        String taobao = "https://s.taobao.com/search?data-key=s&data-value=48&ajax=true&imgfile=&ie=utf8&p4ppushleft=5%2C48&s=0&q=";
-        String tbSearch = "https://s.taobao.com/search?q=风扇&commend=all&ssid=s5-e&search_type=item&sourceId=tb.index&spm=a21bo.2017.201856-taobao-item.2&ie=utf-8&initiative_id=tbindexz_20170306";
+        WebmagicUrl webmagicUrl = webmagicUrlService.findUrl(3l);
+        String url = webmagicUrl.getUrl() + search;
+        if(null != num){
+            String str = "&data-value=";
+            url = url + str + num;
+            taoBaoPageProcessor.getSite().addHeader(":path", "/search?data-key=s&ajax=true&imgfile=&ie=utf8&p4ppushleft=5%2C48&s=0&q="+search + str + num);
+        }else{
+            taoBaoPageProcessor.getSite().addHeader(":path", "/search?data-key=s&ajax=true&imgfile=&ie=utf8&p4ppushleft=5%2C48&s=0&q="+search);
+        }
 
         HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
         httpClientDownloader.setProxyProvider(SimpleProxyProvider.from(
-                new Proxy("171.39.74.116",8123),
-                new Proxy("117.191.11.79",8080),
-                new Proxy("39.137.69.10", 80),
-                new Proxy("180.114.12.225", 4154),
-                new Proxy("121.8.98.196", 8080),
-                new Proxy("39.137.2.210", 8080)
+//                new Proxy("95.154.104.147",3726),
+//                new Proxy("116.62.168.236",8080),
+//                new Proxy("123.59.210.220", 1080),
+//                new Proxy("202.146.144.139", 45316),
+                new Proxy("223.203.0.14", 8000)
         ));
-
-//        Request request = new Request();
-//        request.setCharset("utf-8");
+        Request request = new Request();
+        request.setMethod("post");
+        request.setUrl(url);
         try {
             Spider.create(taoBaoPageProcessor)
-                    .addUrl(taobao+search)
+                    .addUrl(url)
 //                    .addRequest(request)
 //                    .setDownloader(httpClientDownloader)
                     //开启x个线程抓取
@@ -51,22 +61,7 @@ public class TaoBaoController {
         } catch (Exception e) {
             return "error";
         }
-        return "";
+        return "success";
     }
 
-//    public static void main(String[] args) {
-//        long long1 = 1539932738337l;
-//        long long2 = 1539932740379l;
-//        long long3 = 1539932743927l;
-//        long long4 = 1539932746935l;
-//        System.out.println(long1/60);
-//        System.out.println(long2/60);
-//        System.out.println(long3/60);
-//        System.out.println(long4/60);
-//        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
-//        System.out.println(dateformat.format(long1));
-//        System.out.println(dateformat.format(long2));
-//        System.out.println(dateformat.format(long3));
-//        System.out.println(dateformat.format(long4));
-//    }
 }

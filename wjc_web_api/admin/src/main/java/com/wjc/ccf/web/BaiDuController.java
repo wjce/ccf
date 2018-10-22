@@ -1,5 +1,7 @@
 package com.wjc.ccf.web;
 
+import com.wjc.ccf.WebmagicUrlService;
+import com.wjc.ccf.domain.WebmagicUrl;
 import com.wjc.ccf.processor.BaiDuPageProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +19,15 @@ public class BaiDuController {
 
     @Autowired
     private BaiDuPageProcessor baiDuPageProcessor;
+    @Autowired
+    private WebmagicUrlService webmagicUrlService;
+
     @GetMapping(value = "get_bd_data")
     public String getData(){
 
         String baidu = "http://www.baidu.com/s?ie=utf-8&f=8$rsv_bp=1&tn=baiduerr&wd=历史";    //&pn=10
+
+        WebmagicUrl webmagicUrl = webmagicUrlService.findUrl(1l);
 
         HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
         httpClientDownloader.setProxyProvider(SimpleProxyProvider.from(
