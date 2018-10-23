@@ -10,6 +10,7 @@
         <module name="nettyClient" />
         <module name="repository" />
         <module name="service" />
+        <module name="util" />
         <module name="wechat" />
       </profile>
     </annotationProcessing>
@@ -20,6 +21,7 @@
       <module name="nettyClient" target="1.8" />
       <module name="repository" target="1.8" />
       <module name="service" target="1.8" />
+      <module name="util" target="1.8" />
       <module name="wechat" target="1.8" />
       <module name="wjc_web_api" target="1.8" />
     </bytecodeTargetLevel>
