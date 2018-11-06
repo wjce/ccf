@@ -10,7 +10,7 @@ public class UserRole {
     private Role role;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }

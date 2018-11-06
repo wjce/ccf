@@ -14,6 +14,6 @@ public class WebmagicUrlService {
     private WebmagicUrlDao webmagicUrlDao;
 
     public WebmagicUrl findUrl(Long id){
-        return webmagicUrlDao.findById(id);
+        return webmagicUrlDao.findById(id).get();
     }
 }

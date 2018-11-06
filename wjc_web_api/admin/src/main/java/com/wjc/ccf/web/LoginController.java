@@ -21,10 +21,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +35,10 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    @GetMapping(value = "/get_hotel_js")
+    public String atest(){
+        return "/hotel_js";
+    }
     /**
      * 登出
      * @return

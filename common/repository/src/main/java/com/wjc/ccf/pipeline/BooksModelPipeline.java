@@ -33,10 +33,7 @@ public class BooksModelPipeline implements PageModelPipeline<BooksModel> {
         List<BooksModel> list = booksMongoDao.findAll();
         if(list.size()!=0) {
             list.forEach(t -> {
-                WriteResult writeResult = booksMongoDaoCustom.removeCollection(t);
-                System.out.println("writeResult.getN():" + writeResult.getN());
-                System.out.println("writeResult.isUpdateOfExisting():" + writeResult.isUpdateOfExisting());
-                System.out.println("writeResult.wasAcknowledged():" + writeResult.wasAcknowledged());
+                booksMongoDaoCustom.removeCollection(t);
             });
         }
         booksModel.setUrl((List) booksModel.getUrl().stream().map(t->t=url+t).collect(Collectors.toList()));

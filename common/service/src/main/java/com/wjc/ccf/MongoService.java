@@ -22,7 +22,7 @@ public class MongoService {
 
     @Transactional
     public Mongo findOne(Long id){
-        return mongoDao.findOne(id);
+        return mongoDao.findById(id).orElse(null);
     }
 
     @Transactional
@@ -61,19 +61,15 @@ public class MongoService {
     }
 
     public void updateMongo(Mongo mongo){
-        WriteResult result = mongoDaoCustom.updateMongo(mongo);
-        result.getUpsertedId();
-        System.out.println(result.toString());
+        mongoDaoCustom.updateMongo(mongo);
     }
 
     public void updateFirstMongo(Mongo mongo){
-        WriteResult result = mongoDaoCustom.updateFirstMongo(mongo);
-        System.out.println(result.toString());
+        mongoDaoCustom.updateFirstMongo(mongo);
     }
 
     public void updateFirstMongoAge(Mongo mongo){
-        WriteResult result = mongoDaoCustom.updateFirstMongoAge(mongo);
-        System.out.println(result.toString());
+        mongoDaoCustom.updateFirstMongoAge(mongo);
     }
 
     public List<Mongo> findByAgeAndName(Integer age, String name){

@@ -23,7 +23,7 @@ public class User {
     private List<UserRole> userRoleList;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }

@@ -1,6 +1,7 @@
 package com.wjc.ccf.repository.impl;
 
 import com.mongodb.WriteResult;
+import com.mongodb.client.result.UpdateResult;
 import com.wjc.ccf.domain.Mongo;
 import com.wjc.ccf.repository.custom.MongoDaoCustom;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,31 +49,31 @@ public class MongoDaoCustomImpl implements MongoDaoCustom {
     }
 
     @Override
-    public WriteResult updateMongo(Mongo mongo){
+    public void updateMongo(Mongo mongo){
         Query query = new Query(Criteria.where("_id").is(mongo.getId()));
         Update update = new Update();
         //addToSet在该字段key中继续添加值，字段key的值则会变成数组
 //        update.addToSet("key","value");
         update.set("age", mongo.getAge());
         update.set("name", mongo.getName());
-        return mongoTemplate.upsert(query, update, Mongo.class);
+        mongoTemplate.upsert(query, update, Mongo.class);
     }
 
     @Override
-    public WriteResult updateFirstMongo(Mongo mongo){
+    public void updateFirstMongo(Mongo mongo){
         Query query = new Query(Criteria.where("id").is(mongo.getId()));
         Update update = new Update();
         update.set("age", mongo.getAge());
         update.set("name", mongo.getName());
-        return mongoTemplate.updateFirst(query, update, Mongo.class);
+        mongoTemplate.updateFirst(query, update, Mongo.class);
     }
 
     @Override
-    public WriteResult updateFirstMongoAge(Mongo mongo){
+    public void updateFirstMongoAge(Mongo mongo){
         Query query = new Query(Criteria.where("age").is(mongo.getAge()));
         Update update = new Update();
         update.set("name", mongo.getName());
-        return mongoTemplate.updateFirst(query, update, Mongo.class);
+        mongoTemplate.updateFirst(query, update, Mongo.class);
     }
 
     @Override

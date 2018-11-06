@@ -5,5 +5,5 @@ import com.wjc.ccf.model.BooksModel;
 
 public interface BooksMongoDaoCustom {
 
-    WriteResult removeCollection(BooksModel booksModel);
+    void removeCollection(BooksModel booksModel);
 }

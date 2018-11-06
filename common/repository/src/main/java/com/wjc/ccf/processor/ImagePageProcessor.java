@@ -2,8 +2,6 @@ package com.wjc.ccf.processor;
 
 
 import com.google.gson.Gson;
-import com.wjc.ccf.pipeline.ImageModelPipeline;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;

@@ -25,8 +25,6 @@ public class BaiDuController {
     @GetMapping(value = "get_bd_data")
     public String getData(){
 
-        String baidu = "http://www.baidu.com/s?ie=utf-8&f=8$rsv_bp=1&tn=baiduerr&wd=历史";    //&pn=10
-
         WebmagicUrl webmagicUrl = webmagicUrlService.findUrl(1l);
 
         HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
@@ -41,7 +39,7 @@ public class BaiDuController {
 
         try {
             Spider.create(baiDuPageProcessor)
-                    .addUrl(baidu)
+                    .addUrl(webmagicUrl.getUrl())
                     .setDownloader(httpClientDownloader)
                     //开启x个线程抓取
                     .thread(1)

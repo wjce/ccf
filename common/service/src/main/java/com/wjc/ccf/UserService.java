@@ -1,5 +1,6 @@
 package com.wjc.ccf;
 
+import com.wjc.ccf.dao.mapper.UserMapper;
 import com.wjc.ccf.domain.RoleMenu;
 import com.wjc.ccf.domain.User;
 import com.wjc.ccf.domain.UserRole;
@@ -17,8 +18,10 @@ import java.util.Set;
 
 @Service
 public class UserService {
-    @Resource
+    @Autowired
     private UserDao userDao;
+//    @Autowired
+//    private UserMapper userMapper;
 
     public Page<User> list(Pageable pageable){
 
@@ -27,7 +30,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public User getUser(Long id){
-        return userDao.findOne(id);
+        return userDao.findById(id).get();
     }
 
     @Transactional

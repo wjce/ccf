@@ -23,7 +23,7 @@ public class SysMenu {
     private List<RoleMenu> roleMenuList;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }

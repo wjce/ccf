@@ -25,7 +25,7 @@ public class Dept {
     private List<Role> roles;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }

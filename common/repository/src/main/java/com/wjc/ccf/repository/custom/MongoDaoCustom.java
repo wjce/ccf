@@ -15,11 +15,11 @@ public interface MongoDaoCustom {
 
     void delMongo(Long id);
 
-    WriteResult updateMongo(Mongo mongo);
+    void updateMongo(Mongo mongo);
 
-    WriteResult updateFirstMongo(Mongo mongo);
+    void updateFirstMongo(Mongo mongo);
 
-    WriteResult updateFirstMongoAge(Mongo mongo);
+    void updateFirstMongoAge(Mongo mongo);
 
     List<Mongo> findMongoList();
 

@@ -13,8 +13,7 @@ public class BooksMongoDaoCustomImpl implements BooksMongoDaoCustom {
     private MongoTemplate mongoTemplate;
 
     @Override
-    public WriteResult removeCollection(BooksModel booksModel) {
-
-        return mongoTemplate.remove(booksModel, "tb_books");
+    public void removeCollection(BooksModel booksModel) {
+        mongoTemplate.remove(booksModel, "tb_books");
     }
 }
