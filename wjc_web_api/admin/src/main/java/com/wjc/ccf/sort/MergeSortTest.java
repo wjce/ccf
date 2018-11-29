@@ -1,4 +1,4 @@
-package com.wjc.ccf.test;
+package com.wjc.ccf.sort;
 
 import java.util.Arrays;
 
@@ -7,12 +7,12 @@ import java.util.Arrays;
  */
 public class MergeSortTest {
 
-    public void mergeSort(int[] arr) {
+    public static void mergeSort(int[] arr) {
         int[] newArr = new int[arr.length];
         sort(arr, newArr, 0 , arr.length-1);
     }
 
-    public void sort(int[] arr, int[] newArr, int left, int right){
+    public static void sort(int[] arr, int[] newArr, int left, int right){
 //        System.out.println(mid+"left:"+left+"right:"+right);
 
         if(left < right) {
@@ -25,7 +25,7 @@ public class MergeSortTest {
         }
     }
 
-    public void merge(int left, int right, int mid, int[] arr, int[] newArr){
+    public static void merge(int left, int right, int mid, int[] arr, int[] newArr){
         int m = mid+1;
         int l = left;
         int r = right;
