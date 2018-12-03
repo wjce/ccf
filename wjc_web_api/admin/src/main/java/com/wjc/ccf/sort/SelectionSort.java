@@ -15,7 +15,7 @@ public class SelectionSort {
 
         for (int i = 0; i < arr.length-1; i++) {
             int min = i;
-            for (int i1 = i+1; i1 < arr.length; i1++) {
+            for (int i1 = i+1; i1 < arr.length; i1++) { //从第一个元素开始以此往后比较，如果有小于它的，则指向对应元素的索引
                 if(arr[min] > arr[i1]){
                     min = i1;
                 }

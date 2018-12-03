@@ -2,9 +2,15 @@ package com.wjc.ccf.sort;
 
 /**
  * 冒泡排序
- * 通过与相邻元素的比较和交换来把小的数交换到最前面。这个过程类似于水泡向上升一样，因此而得名。举个栗子，对5,3,8,6,4这个无序序列进行冒泡排序。
- * 首先从后向前冒泡，4和6比较，把4交换到前面，序列变成5,3,8,4,6。同理4和8交换，变成5,3,4,8,6,3和4无需交换。5和3交换，变成3,5,4,8,6,3.这样一次冒泡就完了，
- * 把最小的数3排到最前面了。对剩下的序列依次冒泡就会得到一个有序序列。冒泡排序的时间复杂度为O(n^2)。
+ *     1、从第一个数据开始，与第二个数据相比较，如果第二个数据小于第一个数据，则交换两个数据的位置。
+ *
+ * 　　2、指针由第一个数据移向第二个数据，第二个数据与第三个数据相比较，如果第三个数据小于第二个数据，则交换两个数据的位置。
+ *
+ * 　　3、依此类推，完成第一轮排序。第一轮排序结束后，最大的元素被移到了最右面。
+ *
+ * 　　4、依照上面的过程进行第二轮排序，将第二大的排在倒数第二的位置。
+ *
+ * 　　5、重复上述过程，没排完一轮，比较次数就减少一次。
  * @author wangjunce 2018/11/28 15:16
  */
 public class BubbleSort {
@@ -15,7 +21,9 @@ public class BubbleSort {
 //        arr = SelectionSort.selectionSort(arr);
 //        arr = InsertionSort.insertionSort(arr);
 //        arr = QucikSort.quickSort(arr, 0, arr.length-1);
-        SeapSort.seapSort(arr);
+//        SeapSort.seapSort(arr);
+//        ShellSort.shellSort(arr);
+        CountingSort.countingSort(arr);
         for (int i : arr) {
             System.out.println(i);
         }
