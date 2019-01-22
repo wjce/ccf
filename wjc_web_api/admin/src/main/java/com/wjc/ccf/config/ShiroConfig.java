@@ -40,6 +40,18 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/get_books", "anon");
         filterChainDefinitionMap.put("/get_images", "anon");
         filterChainDefinitionMap.put("/get_tb_data", "anon");
+        filterChainDefinitionMap.put("/get_hotel_data", "anon");
+        filterChainDefinitionMap.put("/get_hotel_js", "anon");
+        filterChainDefinitionMap.put("/get_hotel_detail", "anon");
+        filterChainDefinitionMap.put("/find_hotel_detail", "anon");
+        filterChainDefinitionMap.put("/save_hotel", "anon");
+        filterChainDefinitionMap.put("/save_comment", "anon");
+        filterChainDefinitionMap.put("/save_one_comment", "anon");
+        filterChainDefinitionMap.put("/getProxy", "anon");
+        filterChainDefinitionMap.put("/getTicketByTrainNumber", "anon");
+        filterChainDefinitionMap.put("/test", "anon");
+        filterChainDefinitionMap.put("/get_article", "anon");
+        filterChainDefinitionMap.put("/getPhone", "anon");
 
         filterChainDefinitionMap.put("/login","anon");
         filterChainDefinitionMap.put("/req_register","anon");

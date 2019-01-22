@@ -2,10 +2,14 @@ package com.wjc.ccf.web;
 
 import com.wjc.ccf.WebmagicUrlService;
 import com.wjc.ccf.domain.WebmagicUrl;
+import com.wjc.ccf.processor.BaiDuArticlePageProcessor;
 import com.wjc.ccf.processor.BaiDuPageProcessor;
+import com.wjc.ccf.processor.BaiDuPhoneArticlePageProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.downloader.HttpClientDownloader;
 import us.codecraft.webmagic.proxy.Proxy;
@@ -21,6 +25,10 @@ public class BaiDuController {
     private BaiDuPageProcessor baiDuPageProcessor;
     @Autowired
     private WebmagicUrlService webmagicUrlService;
+    @Autowired
+    private BaiDuArticlePageProcessor baiDuArticlePageProcessor;
+    @Autowired
+    private BaiDuPhoneArticlePageProcessor baiDuPhoneArticlePageProcessor;
 
     @GetMapping(value = "get_bd_data")
     public String getData(){
@@ -49,5 +57,16 @@ public class BaiDuController {
             return "error";
         }
         return "success";
+    }
+
+
+    @GetMapping(value = "/get_article")
+    public @ResponseBody String getArticle(String url){
+
+        Spider.create(baiDuArticlePageProcessor)
+                .addUrl(url)
+                .thread(1)
+                .run();
+        return "";
     }
 }

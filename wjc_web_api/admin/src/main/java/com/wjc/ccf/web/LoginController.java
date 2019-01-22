@@ -174,7 +174,9 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/index",method = RequestMethod.GET)
-    public String index2(){
+    public String index2(Model model){
+        model.addAttribute("message2", "error");
+
         return "/index";
     }
 

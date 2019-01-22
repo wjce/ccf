@@ -24,10 +24,9 @@ public class ImageController {
 
     @GetMapping(value = "get_images")
     public String getImages(){
-        String headImg = "https://image.baidu.com/search/acjson?tn=resultjson_com&ipn=rj&ct=201326592&is=&fp=result&queryWord=%E5%A4%B4%E5%83%8F&cl=2&lm=-1&ie=utf-8&oe=utf-8&adpicid=&st=-1&z=&ic=0&word=%E5%A4%B4%E5%83%8F&s=&se=&tab=&width=&height=&face=0&istype=2&qc=&nc=1&fr=&expermode=&cg=head&pn=";
-        String wxheadImg = "https://image.baidu.com/search/acjson?tn=resultjson_com&ipn=rj&ct=201326592&is=&fp=result&queryWord=%E5%A4%B4%E5%83%8F%E5%BE%AE%E4%BF%A1&cl=2&lm=-1&ie=utf-8&oe=utf-8&adpicid=&st=-1&z=&ic=0&word=%E5%A4%B4%E5%83%8F%E5%BE%AE%E4%BF%A1&s=&se=&tab=&width=&height=&face=0&istype=2&qc=&nc=1&fr=&expermode=&pn=";
+        String wxheadImg = "https://image.baidu.com/search/acjson?tn=resultjson_com&ipn=rj&ct=201326592&is=&fp=result&queryWord=头像&cl=2&lm=-1&ie=utf-8&oe=utf-8&adpicid=&st=-1&z=&ic=0&word=%E5%A4%B4%E5%83%8F%E5%BE%AE%E4%BF%A1&s=&se=&tab=&width=&height=&face=0&istype=2&qc=&nc=1&fr=&expermode=&pn=";
 
-        int size = Thread.activeCount();
+        int size = Thread.activeCount();    //当前线程数量
         for(int i =1; i<1925; i=i+10) {
             try {
                 Spider.create(imagePageProcessor)

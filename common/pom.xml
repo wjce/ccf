@@ -15,7 +15,6 @@
         <module>service</module>
         <module>repository</module>
         <module>util</module>
-        <module>mapper</module>
     </modules>
     <distributionManagement>
         <repository>

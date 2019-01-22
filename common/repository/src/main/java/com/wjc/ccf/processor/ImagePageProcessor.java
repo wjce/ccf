@@ -30,23 +30,23 @@ public class ImagePageProcessor implements PageProcessor {
 
     @Override
     public void process(Page page) {
-        Gson gson = new Gson();
+        Gson gson = new Gson(); //序列化工具
         String html = page.getRawText();
-        Map map = gson.fromJson(html, Map.class);
+        Map map = gson.fromJson(html, Map.class);   //将数据转为map
 
         List<Map<String, Object>> list = (List<Map<String, Object>>)map.get("data");
         for(Map<String, Object> m : list){
-            Object thumbURL = m.get("thumbURL");
+            Object thumbURL = m.get("thumbURL");    //key:thumbURL value:图片url
             if(null == thumbURL){
                 break;
             }
             String url = thumbURL.toString();
-            set.add(url);
+            set.add(url);   //使用set保存数据，用来去重
             System.out.println(url);
         }
         System.out.println("set长度："+ set.size());
         try {
-            if (set.size() == 1100)
+            if (set.size() == 1100)     //当url为xxx时将set中的图片保存到本地中
                 download();
         }catch (Exception e){
             e.printStackTrace();

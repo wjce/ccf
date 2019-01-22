@@ -1,6 +1,5 @@
 package com.wjc.ccf;
 
-import com.wjc.ccf.dao.mapper.UserMapper;
 import com.wjc.ccf.domain.RoleMenu;
 import com.wjc.ccf.domain.User;
 import com.wjc.ccf.domain.UserRole;
@@ -20,8 +19,6 @@ import java.util.Set;
 public class UserService {
     @Autowired
     private UserDao userDao;
-//    @Autowired
-//    private UserMapper userMapper;
 
     public Page<User> list(Pageable pageable){
 

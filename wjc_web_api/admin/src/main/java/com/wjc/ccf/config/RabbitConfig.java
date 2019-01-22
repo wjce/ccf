@@ -24,6 +24,9 @@ public class RabbitConfig {
      * 死信队列交换机绑定键标识符
      */
     private static final String DEAD_LETTER_ROUTING_KEY = "x-dead-letter-routing-key";
+    /**
+     *
+     */
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
@@ -36,7 +39,7 @@ public class RabbitConfig {
         //开启returncallback properties需要配置publisher-returns:true
         rabbitTemplate.setMandatory(true);
         rabbitTemplate.setReturnCallback((message , replyCode, replyText, exchange, routingKey) -> {
-            String correlationId = message.getMessageProperties().getCorrelationIdString();
+            String correlationId = message.getMessageProperties().getCorrelationId();
             logger.debug("消息：{"+correlationId+"} 发送失败, 应答码：{"+replyCode+"} 原因：{"+replyText+"} 交换机: {"+exchange+"}  路由键: {"+routingKey+"}");
         });
 
