@@ -11,13 +11,14 @@
         <module name="repository" />
         <module name="service" />
         <module name="util" />
-        <module name="wechat" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="admin" target="1.8" />
       <module name="ccf" target="1.8" />
+      <module name="ccf-wx" target="1.8" />
       <module name="common" target="1.8" />
+      <module name="mapper" target="1.8" />
       <module name="nettyClient" target="1.8" />
       <module name="repository" target="1.8" />
       <module name="service" target="1.8" />

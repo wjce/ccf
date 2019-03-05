@@ -27,7 +27,7 @@ public class RabbitConfig {
     /**
      *
      */
-    @Autowired
+    @Autowired(required = false)
     private RabbitTemplate rabbitTemplate;
 
     public AmqpTemplate amqpTemplate(){

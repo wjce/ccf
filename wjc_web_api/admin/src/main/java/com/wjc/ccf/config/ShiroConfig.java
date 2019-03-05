@@ -26,7 +26,7 @@ public class ShiroConfig {
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap();
         filterChainDefinitionMap.put("/logout","logout");
 
-//        filterChainDefinitionMap.put("/static/**", "anon");
+//        filterChainDefinitionMap.put("/static/**", "anon"); 使用该路径shiro依然拦截
         filterChainDefinitionMap.put("/assets/**", "anon");
         filterChainDefinitionMap.put("/contact/**", "anon");
         filterChainDefinitionMap.put("/css/**", "anon");
@@ -35,6 +35,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/js/**", "anon");
         filterChainDefinitionMap.put("/vendors/**", "anon");
 
+        /** 爬虫及测试代码请求 */
         filterChainDefinitionMap.put("/req_mongo/**", "anon");
         filterChainDefinitionMap.put("/sms", "anon");
         filterChainDefinitionMap.put("/get_books", "anon");

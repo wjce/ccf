@@ -5,7 +5,7 @@
       <usages-collector id="statistics.spring.boot.mvc.usages">
         <counts>
           <entry key="RestClientRequestEditorNavigator.fromCode" value="1" />
-          <entry key="RestClientRequestRunnerNavigator.fromCode" value="2" />
+          <entry key="RestClientRequestRunnerNavigator.fromCode" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.spring.boot.run.usages" />
@@ -19,7 +19,10 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/common/mapper/pom.xml" />
         <option value="$PROJECT_DIR$/rabbitmq_test/pom.xml" />
+        <option value="$PROJECT_DIR$/wjc_web_api/ccf-wx/pom.xml" />
+        <option value="$PROJECT_DIR$/wjc_web_api/wechat/pom.xml" />
       </set>
     </option>
   </component>

@@ -163,8 +163,9 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(){
+    public String index(Model model){
 
+        model.addAttribute("content", "hello world");
         System.out.println("=============");
         Subject subject = SecurityUtils.getSubject();
         if(subject.isRemembered()){
