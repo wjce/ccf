@@ -37,12 +37,12 @@ public class BaiDuController {
 
         HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
         httpClientDownloader.setProxyProvider(SimpleProxyProvider.from(
-                new Proxy("171.39.74.116",8123),
-                new Proxy("117.191.11.79",8080),
-                new Proxy("39.137.69.10", 80),
-                new Proxy("180.114.12.225", 4154),
-                new Proxy("121.8.98.196", 8080),
-                new Proxy("39.137.2.210", 8080)
+                new Proxy("180.109.146.254",46235),
+                new Proxy("163.204.242.153",9999),
+                new Proxy("118.112.195.239", 9999),
+                new Proxy("39.137.69.9", 8080),
+                new Proxy("61.186.64.33", 29922),
+                new Proxy("112.95.24.209", 8118)
         ));
 
         try {

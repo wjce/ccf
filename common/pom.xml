@@ -16,6 +16,13 @@
         <module>repository</module>
         <module>util</module>
     </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.59</version>
+        </dependency>
+    </dependencies>
     <distributionManagement>
         <repository>
             <id>nexus-releases</id>

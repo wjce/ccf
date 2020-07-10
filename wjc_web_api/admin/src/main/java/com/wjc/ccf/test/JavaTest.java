@@ -1,5 +1,6 @@
 package com.wjc.ccf.test;
 
+import com.wjc.ccf.config.RedisConfig;
 import org.apache.shiro.util.Assert;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -8,6 +9,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.util.FileCopyUtils;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
 
@@ -30,6 +32,10 @@ public class JavaTest {
         String content = FileCopyUtils.copyToString(encodedResource.getReader());
         System.out.println(content);
 
+        Properties properties = new Properties();
+        properties.load(RedisConfig.class.getResourceAsStream("/application.properties"));
+
+        System.out.println(properties.getProperty("server.port"));
     }
 
 }

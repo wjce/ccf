@@ -33,6 +33,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/fonts/**", "anon");
         filterChainDefinitionMap.put("/images/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");
+        filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/vendors/**", "anon");
 
         /** 爬虫及测试代码请求 */
@@ -53,6 +54,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/test", "anon");
         filterChainDefinitionMap.put("/get_article", "anon");
         filterChainDefinitionMap.put("/getPhone", "anon");
+        filterChainDefinitionMap.put("/MP_verify_e4Tde04DzhjkDk", "anon");
 
         filterChainDefinitionMap.put("/login","anon");
         filterChainDefinitionMap.put("/req_register","anon");
@@ -60,7 +62,17 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/req_login","anon");
         filterChainDefinitionMap.put("/find_user_name","anon");
         filterChainDefinitionMap.put("/index","anon");
+        filterChainDefinitionMap.put("/setCity", "anon");
+        filterChainDefinitionMap.put("/setCityId", "anon");
+        filterChainDefinitionMap.put("/hotel/**", "anon");
+        filterChainDefinitionMap.put("/smallPig/**", "anon");
+        filterChainDefinitionMap.put("/movie/**", "anon");
+        filterChainDefinitionMap.put("/rabbit/**", "anon");
+        filterChainDefinitionMap.put("/mytest","anon");
+        filterChainDefinitionMap.put("/es/**","anon");
+        filterChainDefinitionMap.put("/webSocket/**","anon");
         filterChainDefinitionMap.put("/**","authc");
+
 
 //        shiroFilterFactoryBean.setLoginUrl("/exception");
         shiroFilterFactoryBean.setLoginUrl("/");

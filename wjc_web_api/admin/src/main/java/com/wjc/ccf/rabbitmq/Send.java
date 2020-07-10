@@ -13,20 +13,21 @@ public class Send {
 
     private final static String Queue_Name = "hello world";
 
-//    public static void main(String[] args) throws IOException, TimeoutException {
-//        ConnectionFactory connectionFactory = new ConnectionFactory();
-//        connectionFactory.setHost("localhost");
-//        Connection connection = connectionFactory.newConnection();
-//        Channel channel = connection.createChannel();
-//        channel.queueDeclare(Queue_Name, false, false, false, null);
-//        String message = getMessage(args);
-//        channel.basicPublish("", Queue_Name, null, message.getBytes());
-//        System.out.println("message:" + message);
-//        channel.close();
-//        connection.close();
-//        HashMap map = new HashMap();
-//
-//    }
+    public static void main(String[] args) throws IOException, TimeoutException {
+        ConnectionFactory connectionFactory = new ConnectionFactory();
+        connectionFactory.setHost("localhost");
+        Connection connection = connectionFactory.newConnection();
+        Channel channel = connection.createChannel();
+        channel.queueDeclare(Queue_Name, false, false, false, null);
+
+        String message = getMessage(args);
+        channel.basicPublish("", Queue_Name, null, message.getBytes());
+        System.out.println("message:" + message);
+        channel.close();
+        connection.close();
+        HashMap map = new HashMap();
+
+    }
 
     private static String getMessage(String[] strings){
         if(strings.length < 1){

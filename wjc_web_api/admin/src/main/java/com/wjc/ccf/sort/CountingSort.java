@@ -3,6 +3,7 @@ package com.wjc.ccf.sort;
 import java.util.Arrays;
 
 /**
+ * 计数排序
  * @author wangjunce 2018/11/30 15:17
  */
 public class CountingSort {

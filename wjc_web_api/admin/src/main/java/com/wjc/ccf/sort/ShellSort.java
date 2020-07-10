@@ -1,6 +1,7 @@
 package com.wjc.ccf.sort;
 
 /**
+ * 希尔排序
  * @author wangjunce 2018/11/30 10:33
  */
 public class ShellSort {

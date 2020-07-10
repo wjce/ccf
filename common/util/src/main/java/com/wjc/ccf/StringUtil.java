@@ -55,8 +55,7 @@ public class StringUtil {
      * @auther: wangjunce 2018/10/23 14:42
      * @return: java.util.List<java.lang.String>
      */
-    public static List<String> StringToList(String str){
-        String[] strs = str.split(",");
-        return Arrays.stream(strs).collect(Collectors.toList());
-    }
+//    public static List<String> StringToList(String str){
+//        return Arrays.stream(str.split(",")).collect(Collectors.toList());
+//    }
 }

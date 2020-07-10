@@ -166,12 +166,11 @@ public class LoginController {
     public String index(Model model){
 
         model.addAttribute("content", "hello world");
-        System.out.println("=============");
         Subject subject = SecurityUtils.getSubject();
         if(subject.isRemembered()){
-            return "/index";
+            return "/test";
         }
-        return "/login";
+        return "/test";
     }
 
     @RequestMapping(value = "/index",method = RequestMethod.GET)

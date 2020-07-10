@@ -18,19 +18,13 @@ public class ThreadTest {
     public static void main(String[] args) {
 //        createThread();
 //        createThread2();
-        testLock();
-//        ExecutorService executorService = Executors.newFixedThreadPool(10);
-//        executorService.execute(new Task3("111"));
-//        executorService.execute(new Task3("222"));
-//        executorService.execute(new Task3("333"));
-//        executorService.execute(new Task3("444"));
-//        executorService.execute(new Task3("555"));
-//        executorService.execute(new Task3("666"));
-//        executorService.execute(new Task3("777"));
-//        executorService.execute(new Task3("888"));
-//        executorService.execute(new Task3("999"));
-//        executorService.execute(new Task3("000"));
-//        executorService.shutdown();
+//        testLock();
+        int num = 50;
+        ExecutorService executorService = Executors.newFixedThreadPool(num);
+        for(int i = 1; i <= num; i++){
+            executorService.execute(new Task3(i+""));
+        }
+        executorService.shutdown();
     }
 
     static class Task3 implements Runnable{
@@ -85,17 +79,19 @@ public class ThreadTest {
             e.printStackTrace();
         }
     }
-    public static void testLock(String param){
 
-        System.out.println(param);
+    public static void testLock(String param){
+//        System.out.println("--------"+param);
         lock.lock();
         try {
-            Thread.sleep(500l);
-            System.out.println(param+"time:" + System.currentTimeMillis());
+            System.out.println("lock---"+param);
+//            Thread.sleep(100l);
+//            System.out.println(param+"/time:" + System.currentTimeMillis());
         }catch (Exception e){
             e.printStackTrace();
         }finally {
             lock.unlock();
+            System.out.println("unlock---"+param);
         }
     }
 
@@ -144,7 +140,7 @@ public class ThreadTest {
             Thread.sleep(1000);
             Date date1 = new Date();
             long time = (date1.getTime()-date.getTime())/1000;
-            return "停止任务，任务执行时间：" + time;
+            return "停止任务"+getParam()+"，任务执行时间：" + time;
         }
     }
 
@@ -160,7 +156,7 @@ public class ThreadTest {
         }catch (Exception e){
             e.printStackTrace();
         }
-        while(futureTask.isDone()) {
+        if(futureTask.isDone()) {
             thread.interrupt();
         }
     }
@@ -168,8 +164,8 @@ public class ThreadTest {
     static class Task implements Callable{
         @Override
         public Object call() throws Exception {
-//            return new ArrayList(){{add(1);add(2);add(4);}};
-            return null;
+            return new ArrayList(){{add(1);add(2);add(4);}};
+//            return null;
         }
     }
 
