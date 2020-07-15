@@ -63,7 +63,27 @@ public class ElasticSearchService {
         return getApi.get(index, id);
     }
 
-    public String search(String index){
-        return searchApi.search(index);
+    public String search(){
+        return searchApi.search();
+    }
+
+    public String termSearch(String indices, String name, Object value){
+        return searchApi.termQuery(indices, name, value);
+    }
+
+    public String matchSearch(String indices, String fieldName, Object value){
+        return searchApi.matchQuery(indices, fieldName, value);
+    }
+
+    public String highLightSearch(String indices, String name, Object text, String... field){
+        return searchApi.highLightQuery(indices, name, text, field);
+    }
+
+    public String aggregationsSearch(String indices, String aggKey, String avgKey, String termField, String field){
+        return searchApi.aggregationsQuery(indices, aggKey, avgKey, termField, field);
+    }
+
+    public String suggestionSearch(String indices, String fieldname, String text, String name){
+        return searchApi.suggestionQuery(indices, fieldname, text, name);
     }
 }

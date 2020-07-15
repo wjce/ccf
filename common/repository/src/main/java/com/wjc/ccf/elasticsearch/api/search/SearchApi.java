@@ -1,27 +1,48 @@
 package com.wjc.ccf.elasticsearch.api.search;
 
+import com.google.gson.Gson;
+import org.apache.lucene.search.TotalHits;
 import org.elasticsearch.action.ActionListener;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.support.IndicesOptions;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.text.Text;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.RangeQueryBuilder;
+import org.elasticsearch.rest.RestStatus;
+import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.aggregations.Aggregation;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.Aggregations;
+import org.elasticsearch.search.aggregations.bucket.MultiBucketsAggregation;
+import org.elasticsearch.search.aggregations.bucket.range.Range;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
+import org.elasticsearch.search.aggregations.metrics.Avg;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.ScoreSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
+import org.elasticsearch.search.suggest.Suggest;
+import org.elasticsearch.search.suggest.SuggestBuilder;
+import org.elasticsearch.search.suggest.SuggestBuilders;
+import org.elasticsearch.search.suggest.SuggestionBuilder;
+import org.elasticsearch.search.suggest.term.TermSuggestion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -38,38 +59,80 @@ public class SearchApi {
     @Qualifier("searchListener")
     private ActionListener listener;
 
-    public String search(String index){
-        SearchRequest searchRequest = new SearchRequest("bank");
+    public String termQuery(String indices, String name, String value){
+        SearchRequest searchRequest = new SearchRequest(indices);
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-//        sourceBuilder.query(QueryBuilders.termQuery("age", "32"));
-//        MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder("gender", "M");
-//        MatchQueryBuilder matchQueryBuilder2 = new MatchQueryBuilder("firstname", "Amber");
-//        MatchQueryBuilder matchQueryBuilder3 = new MatchQueryBuilder("lastname", "Mann");
-        MatchQueryBuilder likeQuery = new MatchQueryBuilder("lastname", "Man")
+        sourceBuilder.query(QueryBuilders.termQuery(name, value));
+        //分页
+        sourceBuilder.from(0);
+        sourceBuilder.size(5);
+        //超时时间设置
+        sourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
+        searchRequest.source(sourceBuilder);
+        return getHits(searchRequest);
+    }
+
+    public String matchQuery(String indices, String fieldName, String value){
+        SearchRequest searchRequest = new SearchRequest(indices);
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        //模糊搜索  设置前缀长度  设置最大扩展选项来控制查询的模糊过程
+        MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder(fieldName, value)
                 .fuzziness(Fuzziness.AUTO)
                 .prefixLength(0)
-//                .maxExpansions(10)
-                ;
+                .maxExpansions(10);
 
-        RangeQueryBuilder rangeQueryBuilder = new RangeQueryBuilder("age").gt(25).lt(45);
-//        sourceBuilder.query(likeQuery);
-        sourceBuilder.query(rangeQueryBuilder);
-//        sourceBuilder.query(QueryBuilders.termQuery("gender", "M"));
-//        sourceBuilder.from(0);
-//        sourceBuilder.size(5);
-        sourceBuilder.sort(new FieldSortBuilder("age").order(SortOrder.DESC));
-        sourceBuilder.sort(new FieldSortBuilder("account_number").order(SortOrder.DESC));
-        StringBuffer stringBuffer = new StringBuffer();
+        sourceBuilder.query(matchQueryBuilder);
         searchRequest.source(sourceBuilder);
-        try {
-            SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
-            SearchHits hits = searchResponse.getHits();
-            hits.forEach(hit -> stringBuffer.append(hit.getSourceAsString()));
+        return getHits(searchRequest);
+    }
 
-        }catch (Exception e){
-            e.printStackTrace();
+    public String highLightQuery(String indices, String name, String text, String... field){
+        SearchRequest searchRequest = new SearchRequest(indices);
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.matchQuery(name, text).prefixLength(0));
+        HighlightBuilder highlightBuilder = new HighlightBuilder();
+        for (String s : field) {
+            highlightBuilder.field(s);
         }
-        return stringBuffer.toString();
+        highlightBuilder.preTags("<span style=\"color:yellow\">");
+        highlightBuilder.postTags("</span>");
+        highlightBuilder.highlighterType("unified");
+//        highlightBuilder.requireFieldMatch(true);
+//        highlightBuilder.numOfFragments(0);
+        searchSourceBuilder.highlighter(highlightBuilder);
+
+        searchSourceBuilder.from(0);
+        searchSourceBuilder.size(40);
+        searchRequest.source(searchSourceBuilder);
+        return getHits(searchRequest, field);
+    }
+
+    public String aggregationsQuery(String indices, String aggKey, String avgKey, String termField, String field){
+        SearchRequest searchRequest = new SearchRequest(indices);
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        /**
+         * 汇总  通过首先创建适当的AggregationBuilder，然后在SearchSourceBuilder上设置它，可以将聚合添加到搜索中
+         * Building Aggregations页面提供了所有可用聚合的列表，以及它们对应的AggregationBuilder对象和AggregationBuilders helper方法
+         * AggregationBuilders.terms 相当于sql中的group by;  terms值自定义 termField为需要分组的key
+         * .subAggregation()相当于count
+         * 获取不同性别的总人数 select gender, count(*) as termField from bank group by gender   #(gender = field)
+         */
+        TermsAggregationBuilder aggregation = AggregationBuilders.terms(aggKey).field(termField);
+//        aggregation.subAggregation(AggregationBuilders.avg(avgKey).field(field));
+        sourceBuilder.aggregation(aggregation);
+        searchRequest.source(sourceBuilder);
+        return getAggregations(searchRequest, aggKey, avgKey);
+    }
+
+    public String suggestionQuery(String indices, String fieldname, String text, String name){
+        SearchRequest searchRequest = new SearchRequest(indices);
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        SuggestionBuilder termSuggestionBuilder = SuggestBuilders.termSuggestion(fieldname).text(text);
+        SuggestBuilder suggestBuilder = new SuggestBuilder();
+        suggestBuilder.addSuggestion(name, termSuggestionBuilder);
+        sourceBuilder.suggest(suggestBuilder);
+        searchRequest.source(sourceBuilder);
+        return suggestionSendSearch(searchRequest, name);
     }
 
 
@@ -144,12 +207,35 @@ public class SearchApi {
 //                .maxExpansions(10);             //设置最大扩展选项以控制查询的模糊过程
 //        sourceBuilder.query(matchQueryBuilder);
 
+        //汇总  通过首先创建适当的AggregationBuilder，然后在SearchSourceBuilder上设置它，可以将聚合添加到搜索中
+        //Building Aggregations页面提供了所有可用聚合的列表，以及它们对应的AggregationBuilder对象和AggregationBuilders helper方法
+        //创建公司名称上的术语聚合，以及公司员工平均年龄上的子聚合
+        TermsAggregationBuilder aggregation = AggregationBuilders.terms("by_company").field("company.keyword");
+        aggregation.subAggregation(AggregationBuilders.avg("average_age").field("age"));
+        sourceBuilder.aggregation(aggregation);
+
+        //向搜索请求添加建议
+        SuggestionBuilder termSuggestionBuilder = SuggestBuilders.termSuggestion("user").text("kmichy");
+        SuggestBuilder suggestBuilder = new SuggestBuilder();
+        suggestBuilder.addSuggestion("suggest_user", termSuggestionBuilder);
+        sourceBuilder.suggest(suggestBuilder);
+
+        //Profile API可用于概要分析特定搜索请求的查询和聚合的执行情况。为了使用它，必须在SearchSourceBuilder中将概要文件标志设置为true
+//        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+//        searchSourceBuilder.profile(true);
+
         //sourceBuilder添加到searchRequest中
         searchRequest.source(sourceBuilder);
 
         /**  同步查询  */
         try {
             SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+
+            Aggregations aggregations = searchResponse.getAggregations();
+            Terms byCompanyAggregation = aggregations.get("by_company");
+            MultiBucketsAggregation.Bucket elasticBucket = byCompanyAggregation.getBucketByKey("Elastic");
+            Avg averageAge = elasticBucket.getAggregations().get("average_age");
+            double avg = averageAge.getValue();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -157,5 +243,105 @@ public class SearchApi {
         /**  异步查询  */
         client.searchAsync(searchRequest, RequestOptions.DEFAULT, listener);
         return result;
+    }
+
+    public String getHits(SearchRequest searchRequest, String... highLightField){
+        SearchResponse searchResponse = syncSendSearch(searchRequest);
+        StringBuilder result = new StringBuilder();
+        SearchHits hits = searchResponse.getHits();
+//        TotalHits totalHits = hits.getTotalHits();
+        //命中的总次数，必须在totalHits.relation上下文中解释
+//        long numHits = totalHits.value;
+        //命中的次数是准确的(EQUAL_TO)还是总数的下限(GREATER_THAN_OR_EQUAL_TO)
+//        TotalHits.Relation relation = totalHits.relation;
+        SearchHit[] searchHits = hits.getHits();
+        for (SearchHit hit : searchHits) {
+            //它允许您返回文档源，可以是简单的json字符串，也可以是键/值对的映射。
+            Map<String, Object> sourceAsMap = hit.getSourceAsMap();
+//            List<Object> users = (List<Object>) sourceAsMap.get(field);
+//            Map<String, Object> innerObject = (Map<String, Object>) sourceAsMap.get(field);
+//如果请求，可以从结果中的每个SearchHit中检索突出显示的文本片段。
+            // hit对象提供了对字段名到HighlightField实例的映射的访问，每个实例都包含一个或多个高亮显示的文本片段
+            Map<String, HighlightField> highlightFields = hit.getHighlightFields();
+            if(highlightFields.size() > 0 && highLightField != null){
+                for (String s : highLightField) {
+                    HighlightField highlight = highlightFields.get(s);
+                    Text[] fragments = highlight.fragments();
+                    String fragmentString = fragments[0].string();
+                    //替换为高亮
+                    sourceAsMap.put(s, fragmentString);
+                }
+            }
+            // 在此映射中，常规字段按字段名进行键控，并包含字段值。多值字段作为对象列表返回，嵌套对象作为另一个键/值映射返回
+            String sourceAsString = hit.getSourceAsString();
+            Gson gson = new Gson();
+            result.append(gson.toJson(sourceAsMap));
+        }
+
+        return result.toString();
+    }
+
+    //可以通过首先获取聚合树的根、聚合对象，然后通过名称获取聚合，从SearchResponse中检索聚合
+    public String getAggregations(SearchRequest searchRequest, String aggKey, String avgKey){
+        SearchResponse searchResponse = syncSendSearch(searchRequest);
+        Aggregations aggregations = searchResponse.getAggregations();
+        Map map = aggregations.getAsMap();
+        Terms byCompanyAggregation = aggregations.get(aggKey);
+        List list = byCompanyAggregation.getBuckets();
+        MultiBucketsAggregation.Bucket elasticBucket = byCompanyAggregation.getBucketByKey(aggKey);
+        Avg averageAge = elasticBucket.getAggregations().get(avgKey);
+        double avg = averageAge.getValue();
+        //注意，如果按名称访问聚合，则需要根据请求的聚合类型指定聚合接口，否则将抛出ClassCastException
+        //这将抛出一个异常，因为“by_company”是一个术语聚合，但我们试图以范围聚合的形式检索它
+//        Range range = aggregations.get(aggKey);
+
+        //还可以将所有聚合作为映射访问，映射是由聚合名称键入的。在这种情况下，需要显式地转换到适当的聚合接口
+//        Map<String, Aggregation> aggregationMap = aggregations.getAsMap();
+//        Terms companyAggregation = (Terms) aggregationMap.get(aggKey);
+
+        //还有一些getter方法以列表的形式返回所有顶级聚合
+//        List<Aggregation> aggregationList = aggregations.asList();
+//        for (Aggregation agg : aggregations) {
+//            String type = agg.getType();
+//            if (type.equals(TermsAggregationBuilder.NAME)) {
+//                Terms.Bucket elasticBucket2 = ((Terms) agg).getBucketByKey("Elastic");
+//                long numberOfDocs = elasticBucket2.getDocCount();
+//            }
+//        }
+        return avg + "";
+    }
+
+    public String suggestionSendSearch(SearchRequest searchRequest, String name){
+        SearchResponse searchResponse = syncSendSearch(searchRequest);
+        StringBuilder result = new StringBuilder();
+        Suggest suggest = searchResponse.getSuggest();
+        TermSuggestion termSuggestion = suggest.getSuggestion(name);
+        for (TermSuggestion.Entry entry : termSuggestion.getEntries()) {
+            for (TermSuggestion.Entry.Option option : entry) {
+                String suggestText = option.getText().string();
+                result.append(suggestText);
+            }
+        }
+
+        return result.toString();
+    }
+
+    public SearchResponse syncSendSearch(SearchRequest searchRequest){
+        SearchResponse searchResponse = null;
+        try {
+            searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+            RestStatus status = searchResponse.status();
+            TimeValue took = searchResponse.getTook();
+            Boolean terminatedEarly = searchResponse.isTerminatedEarly();
+            boolean timedOut = searchResponse.isTimedOut();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return searchResponse;
+    }
+    public void asyncSendSearch(SearchRequest searchRequest){
+        client.searchAsync(searchRequest, RequestOptions.DEFAULT, listener);
     }
 }

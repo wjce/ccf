@@ -45,11 +45,27 @@ public class ElasticSearchController {
         return "success";
     }
 
+
     @PostMapping("/es/get/get")
     public String get(String index, String id){
         return elasticSearchService.get(index, id);
     }
 
     @PostMapping("/es/search")
-    public String search(String index){return elasticSearchService.search(index);}
+    public String search(){return elasticSearchService.search();}
+
+    @PostMapping("/es/termSearch")
+    public String termSearch(String indices, String name, Object value){return elasticSearchService.termSearch(indices, name, value);}
+
+    @PostMapping("/es/matchSearch")
+    public String matchSearch(String indices, String fieldName, Object value){return elasticSearchService.matchSearch(indices, fieldName, value);}
+
+    @PostMapping("/es/highLightSearch")
+    public String highLightSearch(String indices, String name, Object text, String... field){return elasticSearchService.highLightSearch(indices, name, text, field);}
+
+    @PostMapping("/es/aggregationsSearch")
+    public String aggregationsSearch(String indices, String aggKey, String avgKey, String termField, String field){return elasticSearchService.aggregationsSearch(indices, aggKey, avgKey, termField, field);}
+
+    @PostMapping("/es/suggestionSearch")
+    public String suggestionSearch(String indices, String fieldname, String text, String name){return elasticSearchService.suggestionSearch(indices, fieldname, text, name);}
 }
